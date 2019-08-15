@@ -1,6 +1,7 @@
 import { Component, ElementRef, HostBinding, HostListener, OnInit,
          QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 import { CurrentNodes, NavigationService, NavigationNode, VersionInfo } from 'app/navigation/navigation.service';
 import { DocumentService, DocumentContents } from 'app/documents/document.service';
@@ -61,6 +62,7 @@ export class AppComponent implements OnInit {
   isTransitioning = true;
   isFetching = false;
   isSideBySide = false;
+  isDark = false;
   private isFetchingTimeout: any;
   private isSideNavDoc = false;
 
@@ -103,7 +105,8 @@ export class AppComponent implements OnInit {
     private navigationService: NavigationService,
     private scrollService: ScrollService,
     private searchService: SearchService,
-    private tocService: TocService
+    private tocService: TocService,
+    private overlayContainer: OverlayContainer
   ) { }
 
   ngOnInit() {
@@ -412,6 +415,20 @@ export class AppComponent implements OnInit {
         this.hideSearchResults();
         this.focusSearchBox();
       }
+    }
+  }
+
+  toggleTheme() {
+    const darkThemeClass = 'ng-io-dark-theme';
+
+    this.isDark = !this.isDark;
+
+    if (this.isDark) {
+      this.hostElement.nativeElement.classList.add(darkThemeClass);
+      this.overlayContainer.getContainerElement().classList.add(darkThemeClass);
+    } else {
+      this.hostElement.nativeElement.classList.remove(darkThemeClass);
+      this.overlayContainer.getContainerElement().classList.remove(darkThemeClass);
     }
   }
 }

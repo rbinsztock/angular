@@ -24,6 +24,7 @@
     </a>
     <aio-top-menu *ngIf="isSideBySide" [nodes]="topMenuNodes"></aio-top-menu>
     <aio-search-box class="search-container" #searchBox (onSearch)="doSearch($event)" (onFocus)="doSearch($event)"></aio-search-box>
+    <button mat-button (click)="toggleTheme()">{{isDark ? 'Light' : 'Dark'}}</button>
     <div class="toolbar-external-icons-container">
       <a href="https://twitter.com/angular" title="Twitter" aria-label="Angular on twitter">
         <mat-icon svgIcon="logos:twitter"></mat-icon>
